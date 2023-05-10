@@ -1,0 +1,6 @@
+<%- include('partials/header1') %>
+        <h1 class="display-5 fw-bold"><%=Obj.Title%></h1>
+        <p class="col-md-8 fs-4"><%=Obj.Message%></p>
+        <form action="/Response" method="post">
+            <button class="btn btn-primary btn-lg" type="submit" name="BtnMsg" value="<%=Obj.BtnMsg%>"><%=Obj.BtnMsg%></button>
+<%- include('partials/footer1') %>
