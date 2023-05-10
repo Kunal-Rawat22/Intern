@@ -131,13 +131,17 @@ app.get('/auth/google/booking',
         Message:'There was a problem in login you up. Please try again or contact the developer',
         BtnMsg:'Login Again'
     }]
+app.get('/', function (req, res) {
+    res.redirect('/login');
+})
 
 app.route('/login')
     
     .get(function (req, res) {
         if (!req.isAuthenticated())
-            res.render('login');
-    
+            res.render('login',{Title:'Login ', Body:'Log In',flag:1});
+            // res.render('login');
+
         else
             res.redirect('/booking');
         
@@ -148,30 +152,12 @@ app.route('/login')
             res.redirect('/booking');
         });
     
-// .post(function (req, res) {
-
-//     const RequestedObj = new User({
-//         username: req.body.username,
-//         password: req.body.password
-//     });
-//     req.login(RequestedObj, function (err) {
-//         if (err) {
-//             console.log(err);
-//             res.render('Response1',{Obj: logResponse[0]})
-//         }
-//         else {
-//             passport.authenticate("local")(req, res, function ()
-//             {
-//                 res.redirect('/booking');
-//             })
-//         }
-//       })
-
 
 app.route('/register')
     
     .get(function (req, res) {
-        res.render('register');
+        res.render('login',{Title:'Register ', Body:'Sign Up',flag:0});
+        // res.render('register');
     })
     .post(function (req, res) {
         User.register({ username: req.body.username, email:req.body.username }, req.body.password, function (err, user)
@@ -199,6 +185,7 @@ app.route('/booking')
         else
         res.redirect('/login');
     })
+
 app.route('/Response')
     .get(function (req, res) {
         res.render('Response1', { Obj: logResponse[0] });
@@ -210,6 +197,7 @@ app.route('/Response')
         else
             res.redirect('/login');
     });
+    
     app.route('/logout')
         .get(function (req, res)
         {

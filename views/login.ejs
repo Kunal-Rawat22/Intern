@@ -1,15 +1,15 @@
-<%- include('partials/header') %>
+<!-- <%- include('partials/header') %> -->
 
-<div class="container mt-5">
+<!-- <div class="container mt-5">
   <h1>Login</h1>
 
   <div class="row">
     <div class="col-sm-8">
       <div class="card">
-        <div class="card-body">
+        <div class="card-body">-->
 
           <!-- Makes POST request to /login route -->
-          <form action="/login" method="POST">
+          <!-- <form action="/login" method="POST">
             <div class="form-group">
               <label for="email">Email</label>
               <input type="email" class="form-control" name="username">
@@ -46,6 +46,23 @@
    
 
   </div>
-</div>
+</div> -->
+<%-include('partials/header3.ejs')%>
+       <h3><%=Title%>Here</h3>
 
-<%- include('partials/footer') %>
+        <label for="username">Username</label>
+        <input type="text" placeholder="Email or Phone" id="username" name="username">
+
+        <label for="password">Password</label>
+        <input type="password" placeholder="Password" id="password" name="password">
+
+        <button><%=Body%></button>
+        <% if(flag===1){%>
+        <div><small id="titleHelp" class="form-text text-muted">Don't have an Account ? <a href="/register">Click Here</a></small></div>
+        <%}%>
+        <div class="social">
+          <a href="/auth/google" role="button" style="text-decoration: none;"><div class="go"><i class="fab fa-google"></i>  Google</div></a>
+          <a href="/auth/facebook" role="button" style="text-decoration: none;"><div class="fb"><i class="fab fa-facebook"></i>  Facebook</div></a>
+        </div>
+<%-include('partials/footer3.ejs')%>
+<!-- <%- include('partials/footer') %> -->
