@@ -39,7 +39,7 @@ async function main () {
   
   main();
 
-  const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
       email: {
           type: String,
           unique:false
@@ -52,12 +52,37 @@ async function main () {
           unique:false
       },
       googleId: String,
+      phoneNo: Number,
   })
     
+const flightSchema = new mongoose.Schema({
+    Date: {
+        type: String,
+        unique: false
+    },
+    To: {
+        type: String,
+        unique: false
+    },
+    From: {
+        type: String,
+        unique: false
+    },
+    Flights: [
+        {
+            AirlineName: String,
+            Price: String,
+            Type: String
+        }
+    ]
+});
+
 userSchema.plugin(passportLocalMongoose);
 userSchema.plugin(findOrCreate);
 
 const User = mongoose.model('Users', userSchema);
+const Flight = mongoose.model('Flights', flightSchema);
+
 
 //cookies and session
 passport.use(User.createStrategy());
@@ -90,9 +115,11 @@ passport.use(new GoogleStrategy({
 
 async function findO(RequestedObj)
 {
-    const result = await User.findOne(
+    const result = await Flight.findOne(
         {
-            email: RequestedObj.email,
+            Date: RequestedObj.Date,
+            To: RequestedObj.To,
+            From : RequestedObj.From
         });
     // console.log(result);
     if (result !== null)
@@ -140,6 +167,7 @@ app.route('/login')
     .get(function (req, res) {
         if (!req.isAuthenticated())
             res.render('login',{Title:'Login ', Body:'Log In',flag:1});
+            
             // res.render('login');
 
         else
@@ -181,11 +209,27 @@ app.route('/booking')
     .get(function (req, res)
     {
         if (req.isAuthenticated())
-        res.sendFile(__dirname+'/booking.html');
+            res.render('booking');
+
         else
         res.redirect('/login');
     })
-
+    .post(function (req, res)
+    {
+        const FlightDetails = {
+            From: req.body.From,
+            To: req.body.To,
+            Date: req.body.Departure_Date
+        } 
+        const R = findO(FlightDetails);
+        R.then(result => {
+            if (result !== null)
+                console.log(result);
+            else
+                res.redirect('/booking');
+        })
+        console.log(FlightDetails);
+})
 app.route('/Response')
     .get(function (req, res) {
         res.render('Response1', { Obj: logResponse[0] });
@@ -197,7 +241,7 @@ app.route('/Response')
         else
             res.redirect('/login');
     });
-    
+
     app.route('/logout')
         .get(function (req, res)
         {
