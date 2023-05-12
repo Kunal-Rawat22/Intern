@@ -15,6 +15,7 @@
     "ejs": "^3.1.9",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
+    "mongodb-legacy": "^5.0.0",
     "mongoose": "^7.1.0",
     "mongoose-findorcreate": "^4.0.0",
     "passport": "^0.6.0",
