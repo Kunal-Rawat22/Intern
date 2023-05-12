@@ -91,23 +91,31 @@
                     <div class="box" id="heading">
                         <h1> Flight Details</h1>
                     </div>
-
                     <div class="box">
-                        <% for (let i=0; i<Flights.length; i++) { %>
+                        <% if(flag2===1){%>
+                            <% for (let i=0; i<Flights.length; i++) { %>
+                                <div class="item">
+                                    <h3 id="Airline" class="col-lg-6">
+                                        <%= Flights[i].AirlineName %>
+                                    </h3>
+                                    <h4 id="Price" class="col-lg-6">₹<%= Flights[i].Price%>
+                                    </h4>
+                                    <h6 id="Type" class="col-lg-6">
+                                        <%= Flights[i].Type %>
+                                    </h6>
+                                </div>
+                            <% } %> 
+                        <% } %> 
+                        <% if(flag2==0){%>
                             <div class="item">
-                                <h3 id="Airline" class="col-lg-6">
-                                    <%= Flights[i].AirlineName %>
-                                </h3>
-                                <h4 id="Price" class="col-lg-6">₹<%= Flights[i].Price%>
-                                </h4>
-                                <h6 id="Type" class="col-lg-6">
-                                    <%= Flights[i].Type %>
-                                </h6>
+                                <h2 id="Airline" class="col-lg-12">
+                                    <%= Res %>
+                                </h2>
                             </div>
-                            <% } %>
+                        <% } %> 
                     </div>
                 </div>
-                <%}%>
+            <%}%>
         </div>
 
         <!-- Contact -->

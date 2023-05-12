@@ -31,7 +31,7 @@ async function main () {
      }
      
      try {
-         await mongoose.connect("mongodb://127.0.0.1:27017/internDB", connectionOptions);
+         await mongoose.connect(process.env.MONGODB, connectionOptions);
         console.log(`Connected to MongoDB`)
      } catch (err) {
       console.log(`Couldn't connect: ${err}`)
@@ -264,7 +264,7 @@ app.route('/booking')
 .get(function (req, res)
 {
     if (req.isAuthenticated())
-        res.render('booking',{flag:0});
+        res.render('booking', { flag: 0 });
 
     else
     res.redirect('/login');
@@ -273,6 +273,9 @@ app.route('/booking')
 {
     if (req.isAuthenticated())
     {
+        if (req.body.From==="" || req.body.To==="" || req.body.Departure_Date==="")
+            res.render('booking',{flag:0});
+
         const FlightDetails = {
             From: req.body.From,
             To: req.body.To,
@@ -280,10 +283,14 @@ app.route('/booking')
         } 
         const R = findO(FlightDetails);
         R.then(result => {
+            let Res = "No flights Available for the day !!";
+            console.log(result);
             if (result !== null)
-                res.render('booking', { flag: 1, Flights: result.Flights });
+                res.render('booking', { flag: 1,flag2:1, Flights: result.Flights });
             else
-                res.render('booking', { flag: 0 });
+            {
+                res.render('booking', { flag: 1, flag2: 0, Res : Res });
+            }
         })
         console.log(FlightDetails);
     }
