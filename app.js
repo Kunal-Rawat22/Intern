@@ -78,13 +78,31 @@ const flightSchema = new mongoose.Schema({
         }
     ]
 });
+const suggestionSchema = new mongoose.Schema({
+    Name: {
+        type: String,
+        unique: false
+    },
+    Phno: {
+        type: Number,
+        unique: false
+    },
+    Email: {
+        type: String,
+        unique: false
+    },
+    Msg: {
+        type: String,
+        unique: false 
+    }
+})
 
 userSchema.plugin(passportLocalMongoose);
 userSchema.plugin(findOrCreate);
 
 const User = mongoose.model('Users', userSchema);
 const Flight = mongoose.model('Flights', flightSchema);
-
+const Suggestion = mongoose.model('Suggestions', suggestionSchema);
 
 //cookies and session
 passport.use(User.createStrategy());
@@ -176,8 +194,13 @@ app.get('/auth/facebook/booking',
         },
         {
             Title: 'Awesome !!',
-            Message: "You've been Successfully signed up to our Newsletter, look forward to lots of awesome content",
+            Message: "You've Successfully signed up to our website, look forward to lots of comfortable journey",
             BtnMsg: 'Login !!'
+        },
+        {
+            Title: 'Thank You !!',
+            Message: "You've Successfully submitted the suggestion, we will definately consider your Suggestion",
+            BtnMsg: "Let's Go Back !!"
         }
     ]
     const logResponse = [{
@@ -243,20 +266,26 @@ app.route('/booking')
     })
     .post(function (req, res)
     {
-        const FlightDetails = {
-            From: req.body.From,
-            To: req.body.To,
-            Date: req.body.Departure_Date
-        } 
-        const R = findO(FlightDetails);
-        R.then(result => {
-            if (result !== null)
-                // console.log(result);
-                res.render('booking', { flag: 1, Flights: result.Flights });
-            else
-                res.render('booking', { flag: 0 });
-        })
-        console.log(FlightDetails);
+        if (req.isAuthenticated())
+        {
+            const FlightDetails = {
+                From: req.body.From,
+                To: req.body.To,
+                Date: req.body.Departure_Date
+            } 
+            const R = findO(FlightDetails);
+            R.then(result => {
+                if (result !== null)
+                    // console.log(result);
+                    res.render('booking', { flag: 1, Flights: result.Flights });
+                else
+                    res.render('booking', { flag: 0 });
+            })
+            console.log(FlightDetails);
+        }
+        else
+        res.redirect('/login');
+       
 })
 app.route('/Response')
     .get(function (req, res) {
@@ -278,8 +307,19 @@ app.route('/Response')
                     return next(err); 
             });
             res.redirect('/login');
+        })
+app.post('/Suggestion', function (req, res)
+{
+    const suggestion = new Suggestion({
+        Name: req.body.name,
+        Phno: req.body.phn,
+        Email: req.body.email,
+        Msg: req.body.msg
     })
-    
+    console.log(suggestion);
+    suggestion.save();
+    res.render('Response1', { Obj: RegRsponse[2] });
+})
 app.listen(3000, function () {
     console.log("Server is running on port 3000.");
 })

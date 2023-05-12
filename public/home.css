@@ -1,9 +1,25 @@
+#Contact{
+    font-family: 'Montserrat', sans-serif;
+    position: relative;
+}
+#Contact h1 {
+    font-weight: 700;
+}
+#Contact h4 {
+    font-weight: 700;
+}
+#Contact h5 {
+    font-weight: 700;
+}
+#Contact h1 {
+    font-size: 2.7rem;
+}
 .Booking_Menu{
     background-image: url(airplane.jpg);
     background-size: cover;
     padding-top: 4%;
     padding-bottom: 5%;
-  /* min-height: 100px; */
+    min-height: 600px;
 
 }
 #form{
@@ -112,6 +128,66 @@
     text-align: left;
     margin-top: 9%;
   }
+
+  .container-fluid {
+    padding: 3% 2% 5%;
+    margin: 0;
+}
+
+#Contact {
+    padding: 3% 2% 5%;
+    margin: 0;
+}
+#Contact .INFO {
+    padding: 2% 2% 0;
+}
+
+#Contact .SUGG {
+    padding: 2% 1% 0;
+}
+
+#Contact .info {
+    margin: 10% 0;
+}
+
+.icon {
+    margin-right: 5%;
+}
+
+.icon:hover {
+    color: #ff4c68;
+}
+
+#footer {
+    text-align: center;
+    padding: 3% 20% 1%;
+    background-color: #ff4c68;
+}
+
+.icon2 {
+    margin: 0.6%;
+}
+
+.icon2:hover {
+    color: #fff;
+}
+
+#footer .pf {
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+.container-fluid {
+    padding: 3% 2% 5%;
+    margin: 0;
+}
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+}
+
 /* .ui-datepicker .ui-widget-content {
     background: white none;
     color: #fff;

@@ -1,88 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Airline Availability</title>
-    <link rel="stylesheet" href="home.css">
-     <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Airline Availability</title>
+        <link rel="stylesheet" href="home.css">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 
-<!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+        <!--Font Awesome-->
+        <script src="https://kit.fontawesome.com/77c4b15587.js" crossorigin="anonymous"></script>
 
-</head>
-<body>
-    <div class="Booking_Menu">
-    <div class="container"><!--container-->
+        <!--Bootstrap Link-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
-        <form class="form-group" action="/booking" method="POST"><!--form-->
-            <h1 class="text-center">Flight Booking</h1>
+        <!--Bootstrap Script-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+            integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+            integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+            crossorigin="anonymous"></script>
 
-            <div id="form"><!--form-->
-                <h3 class="text-white">Booking Details</h3>
 
-            <div id="input"><!--input-->
-                <input type="text" id="input-group" placeholder="From" name="From">
-                <input type="text" id="input-group" placeholder="To" name="To">
-                <input type="date" id="input-group" placeholder="Departure Date" name="Departure_Date">
-                <input type="time" id="input-group" placeholder="Departure Time">
-                <select  id="input-group" style="background: black;">
-                    <option value="">Prefered Airline</option>
-                    <option value="">IndiGo</option>
-                    <option value="">Air India</option>
-                    <option value="">SpiceJet</option>
-                </select>
-                <select  id="input-group" style="background: black;">
-                    <option value="">Prefered Seating</option>
-                    <option value="">Economy Class</option>
-                    <option value="">Business Class</option>
-                    <option value="">First Class</option>
-                </select>
-                </div><!--input-->
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Delicious+Handrawn&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+            rel="stylesheet">
+    </head>
 
-              <div id="input2">input5
-                    <h3 class="text-white">Personal Details</h3>
-                </div><!--input5-->
+    <body>
 
-                <div id="input3"><!--input6-->
-                    <input type="text" id="input-group" placeholder="Full Name">
-                    <input type="number" id="input-group" placeholder="Phone Number">
-                    <input type="email" id="input-group1" placeholder="Email" >
-                    <!-- value="" -->
-               </div><!--input6-->
-                <button type="submit" class="btn btn-outline-light btn-lg" >Check Availability</button>
-                <a class="btn btn-light btn-lg" href="/logout" role="button">Log Out</a>
+        <div class="Booking_Menu">
+            <div class="container"><!--container-->
 
-            </div><!--form-->
+                <form class="form-group" action="/booking" method="POST"><!--form-->
+                    <h1 class="text-center">Flight Booking</h1>
 
-        </form><!--form-->
+                    <div class="container-fluid" id="form"><!--form-->
+                        <h3 class="text-white">Booking Details</h3>
 
-    </div><!--container-->
-    <% if(flag===1){%>
-        <div class="FDetails">
-        <div class="box" id="heading">
-            <h1 > Flight Details</h1>
-          </div>
-        
-          <div class="box">
-            <% for (let i=0; i<Flights.length; i++) { %>
-              <div class="item">
-                    <h3 id="Airline" class="col-lg-6"><%=  Flights[i].AirlineName %></h3>
-                    <h4 id="Price" class="col-lg-6">₹<%=  Flights[i].Price%></h4>
-                    <h6 id="Type"  class="col-lg-6"><%=  Flights[i].Type %></h6>
-              </div>
-              <% } %>
-          </div>
+                        <div id="input"><!--input-->
+                            <input type="text" id="input-group" placeholder="From" name="From">
+                            <input type="text" id="input-group" placeholder="To" name="To">
+                            <input type="date" id="input-group" placeholder="Departure Date" name="Departure_Date">
+                            <input type="time" id="input-group" placeholder="Departure Time">
+                            <select id="input-group" style="background: black;">
+                                <option value="">Prefered Airline</option>
+                                <option value="">IndiGo</option>
+                                <option value="">Air India</option>
+                                <option value="">SpiceJet</option>
+                            </select>
+                            <select id="input-group" style="background: black;">
+                                <option value="">Prefered Seating</option>
+                                <option value="">Economy Class</option>
+                                <option value="">Business Class</option>
+                                <option value="">First Class</option>
+                            </select>
+                        </div><!--input-->
+
+                        <div id="input2">
+                            <h3 class="text-white">Personal Details</h3>
+                        </div>
+
+                        <div id="input3">
+                            <input type="text" id="input-group" placeholder="Full Name">
+                            <input type="number" id="input-group" placeholder="Phone Number">
+                            <input type="email" id="input-group1" placeholder="Email">
+
+                        </div>
+                        <button type="submit" class="btn btn-outline-light btn-lg">Check Availability</button>
+                        <a class="btn btn-light btn-lg" href="/logout" role="button">Log Out</a>
+
+                    </div><!--form-->
+
+                </form><!--form-->
+
+            </div><!--container-->
+
+            <% if(flag===1){%>
+                <div class="FDetails">
+                    <div class="box" id="heading">
+                        <h1> Flight Details</h1>
+                    </div>
+
+                    <div class="box">
+                        <% for (let i=0; i<Flights.length; i++) { %>
+                            <div class="item">
+                                <h3 id="Airline" class="col-lg-6">
+                                    <%= Flights[i].AirlineName %>
+                                </h3>
+                                <h4 id="Price" class="col-lg-6">₹<%= Flights[i].Price%>
+                                </h4>
+                                <h6 id="Type" class="col-lg-6">
+                                    <%= Flights[i].Type %>
+                                </h6>
+                            </div>
+                            <% } %>
+                    </div>
+                </div>
+                <%}%>
         </div>
-    <%}%>
-</div>
-  
-</body>
+
+        <!-- Contact -->
+        <div class="row container-fluid Contact" id="Contact">
+            <div class="col-lg-3 INFO">
+                <h1>Contact Us</h1>
+                <div class="info">
+                    <h5>ADDRESS</h5>
+                    <p>BPIT, PSP-4, Dr KN Katju Marg, Sector 17, Rohini, Delhi 110089</p>
+                </div>
+                <div class="info">
+                    <h5>E-MAIL ADDRESS</h5>
+                    <p>Kunalrawat399@gmail.com</p>
+                </div>
+                <div class="info">
+                    <h5>PHONE NUMBER</h5>
+                    <p>+91 99111-36266</p>
+                </div>
+                <div class="info">
+                    <h5>Our Socials</h5>
+                    <i class="fa-brands fa-linkedin fa-2x icon"></i>
+                    <i class="fa-brands fa-facebook-f fa-2x icon"></i>
+                    <i class="fa-brands fa-instagram fa-2x icon"></i>
+                    <i class="fa-solid fa-envelope fa-2x icon"></i>
+                </div>
+            </div>
+            <div class="col-lg-3" style="visibility: hidden;"></div>
+            <div class="col-lg-3" style="visibility: hidden;"></div>
+
+            <div class="col-lg-3 SUGG">
+
+                <div class="card">
+                    <div class="card-header" style="text-align: center;">
+                        <h4>Suggestion</h4>
+                    </div>
+                  
+                        <form action="/Suggestion" method="POST" class="card-body d-grid gap-3">
+                        <input type="text" name="name" placeholder="Name">
+                        <input type="text" name="phn" placeholder="Phone No.">
+                        <input type="text" name="email" placeholder="Email Address">
+                        <textarea type="text" name="msg" placeholder="Message" cols="30" rows="6"></textarea>
+                        <button type="submit" class="btn btn-block btn-dark btn-lg">Submit </button>
+                        </form>
+
+                </div>
+            </div>
+        </div>
+    <!-- Footer -->
+        <footer id="footer">
+            <i class="fa-brands fa-linkedin fa-xs icon2"></i>
+            <i class="fa-brands fa-facebook-f fa-xs icon2"></i>
+            <i class="fa-brands fa-instagram fa-xs icon2"></i>
+            <i class="fa-solid fa-envelope fa-xs icon2"></i>
+            <p class="pf">© Copyright 2023 Intern</p>
+
+        </footer>
+    </body>
+
 </html>
