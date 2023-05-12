@@ -1,6 +1,10 @@
-body{
-    background-image: url(airplane3.jpg);
+.Booking_Menu{
+    background-image: url(airplane.jpg);
     background-size: cover;
+    padding-top: 4%;
+    padding-bottom: 5%;
+  /* min-height: 100px; */
+
 }
 #form{
     background-color: #000;
@@ -54,6 +58,60 @@ body{
     background: transparent;
     color:#fff
 }
+
+.box h1 {
+    color: #917FB3;
+    padding: 10px;
+  }
+  
+  .box {
+    max-width: 400px;
+    margin: 50px auto;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
+  
+  }
+  
+  #heading {
+    background-color: #FDE2F3;
+    text-align: center;
+  }
+  
+  .item {
+    min-height: 70px;
+    display: flex;
+    /* align-items: center; */
+    border-bottom: 1px solid #F1F1F1;
+    position: relative;
+    padding-top: 1%;
+  }
+  
+  .item:last-child {
+    border-bottom: 0;
+  }
+  
+
+  ::placeholder {
+    color: grey;
+    opacity: 1;
+  }
+  #Airline
+  {
+    text-align: left;
+    /* display: flex; */
+  }
+  #Price
+  {
+    text-align: center;
+    color: orangered;
+    align-self: center;
+  }
+  #Type
+  { position: absolute;
+    text-align: left;
+    margin-top: 9%;
+  }
 /* .ui-datepicker .ui-widget-content {
     background: white none;
     color: #fff;

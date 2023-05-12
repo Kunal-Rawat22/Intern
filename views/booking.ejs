@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Airline Booking Form</title>
+    <title>Airline Availability</title>
     <link rel="stylesheet" href="home.css">
      <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
@@ -19,10 +19,11 @@
 
 </head>
 <body>
+    <div class="Booking_Menu">
     <div class="container"><!--container-->
 
         <form class="form-group" action="/booking" method="POST"><!--form-->
-            <h1 class="text-center">Airline Booking Form</h1>
+            <h1 class="text-center">Flight Booking</h1>
 
             <div id="form"><!--form-->
                 <h3 class="text-white">Booking Details</h3>
@@ -46,7 +47,7 @@
                 </select>
                 </div><!--input-->
 
-                <div id="input2"><!--input5-->
+              <div id="input2">input5
                     <h3 class="text-white">Personal Details</h3>
                 </div><!--input5-->
 
@@ -55,8 +56,8 @@
                     <input type="number" id="input-group" placeholder="Phone Number">
                     <input type="email" id="input-group1" placeholder="Email" >
                     <!-- value="" -->
-                </div><!--input6-->
-                <button type="submit" class="btn btn-outline-light">Check Availability</button>
+               </div><!--input6-->
+                <button type="submit" class="btn btn-outline-light btn-lg" >Check Availability</button>
                 <a class="btn btn-light btn-lg" href="/logout" role="button">Log Out</a>
 
             </div><!--form-->
@@ -64,5 +65,24 @@
         </form><!--form-->
 
     </div><!--container-->
+    <% if(flag===1){%>
+        <div class="FDetails">
+        <div class="box" id="heading">
+            <h1 > Flight Details</h1>
+          </div>
+        
+          <div class="box">
+            <% for (let i=0; i<Flights.length; i++) { %>
+              <div class="item">
+                    <h3 id="Airline" class="col-lg-6"><%=  Flights[i].AirlineName %></h3>
+                    <h4 id="Price" class="col-lg-6">₹<%=  Flights[i].Price%></h4>
+                    <h6 id="Type"  class="col-lg-6"><%=  Flights[i].Type %></h6>
+              </div>
+              <% } %>
+          </div>
+        </div>
+    <%}%>
+</div>
+  
 </body>
 </html>

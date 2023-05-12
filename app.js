@@ -7,6 +7,7 @@ const session = require('express-session');
 const passport = require('passport');
 const passportLocalMongoose = require('passport-local-mongoose');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
 const app = express();
 
@@ -53,6 +54,7 @@ const userSchema = new mongoose.Schema({
       },
       googleId: String,
       phoneNo: Number,
+      facebookId: String
   })
     
 const flightSchema = new mongoose.Schema({
@@ -113,6 +115,20 @@ passport.use(new GoogleStrategy({
   }
 ));
 
+//facebook auth
+
+passport.use(new FacebookStrategy({
+    clientID: process.env.FACEBOOK_APP_ID,
+    clientSecret: process.env.FACEBOOK_APP_SECRET,
+    callbackURL: "http://localhost:3000/auth/facebook/booking"
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    User.findOrCreate({ facebookId: profile.id , username: profile.displayName }, function (err, user) {
+      return cb(err, user);
+    });
+  }
+));
+
 async function findO(RequestedObj)
 {
     const result = await Flight.findOne(
@@ -140,6 +156,17 @@ app.get('/auth/google/booking',
     res.redirect('/booking');
     });
 
+
+//facebook
+app.get('/auth/facebook',
+  passport.authenticate('facebook'));
+
+app.get('/auth/facebook/booking',
+  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/booking');
+  });
 
     const RegRsponse = [
         {
@@ -209,7 +236,7 @@ app.route('/booking')
     .get(function (req, res)
     {
         if (req.isAuthenticated())
-            res.render('booking');
+            res.render('booking',{flag:0});
 
         else
         res.redirect('/login');
@@ -224,9 +251,10 @@ app.route('/booking')
         const R = findO(FlightDetails);
         R.then(result => {
             if (result !== null)
-                console.log(result);
+                // console.log(result);
+                res.render('booking', { flag: 1, Flights: result.Flights });
             else
-                res.redirect('/booking');
+                res.render('booking', { flag: 0 });
         })
         console.log(FlightDetails);
 })
