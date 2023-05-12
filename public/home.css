@@ -1,6 +1,10 @@
+/* Contact */
+
 #Contact{
     font-family: 'Montserrat', sans-serif;
     position: relative;
+    padding: 3% 2% 5%;
+    margin: 0;
 }
 #Contact h1 {
     font-weight: 700;
@@ -14,6 +18,63 @@
 #Contact h1 {
     font-size: 2.7rem;
 }
+
+#Contact .INFO {
+    padding: 2% 2% 0;
+}
+
+#Contact .SUGG {
+    padding: 2% 1% 0;
+}
+
+#Contact .info {
+    margin: 10% 0;
+}
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+}
+.icon {
+    margin-right: 5%;
+}
+
+.icon:hover {
+    color: #ff4c68;
+}
+.container-fluid {
+    padding: 3% 2% 5%;
+    margin: 0;
+}
+
+/* ********************************************************************************************************* */
+
+/* Footer */
+
+#footer {
+    text-align: center;
+    padding: 3% 20% 1%;
+    background-color: #ff4c68;
+}
+
+.icon2 {
+    margin: 0.6%;
+}
+
+.icon2:hover {
+    color: #fff;
+}
+
+#footer .pf {
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+/* ********************************************************************************************************* */
+/* Booking Menu */
+
 .Booking_Menu{
     background-image: url(airplane.jpg);
     background-size: cover;
@@ -88,7 +149,10 @@
     box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
   
   }
-  
+
+
+/* ********************************************************************************************************* */
+/* Flight Details */
   #heading {
     background-color: #FDE2F3;
     text-align: center;
@@ -97,7 +161,6 @@
   .item {
     min-height: 70px;
     display: flex;
-    /* align-items: center; */
     border-bottom: 1px solid #F1F1F1;
     position: relative;
     padding-top: 1%;
@@ -107,7 +170,6 @@
     border-bottom: 0;
   }
   
-
   ::placeholder {
     color: grey;
     opacity: 1;
@@ -115,7 +177,6 @@
   #Airline
   {
     text-align: left;
-    /* display: flex; */
   }
   #Price
   {
@@ -129,78 +190,8 @@
     margin-top: 9%;
   }
 
-  .container-fluid {
-    padding: 3% 2% 5%;
-    margin: 0;
-}
 
-#Contact {
-    padding: 3% 2% 5%;
-    margin: 0;
-}
-#Contact .INFO {
-    padding: 2% 2% 0;
-}
 
-#Contact .SUGG {
-    padding: 2% 1% 0;
-}
 
-#Contact .info {
-    margin: 10% 0;
-}
 
-.icon {
-    margin-right: 5%;
-}
 
-.icon:hover {
-    color: #ff4c68;
-}
-
-#footer {
-    text-align: center;
-    padding: 3% 20% 1%;
-    background-color: #ff4c68;
-}
-
-.icon2 {
-    margin: 0.6%;
-}
-
-.icon2:hover {
-    color: #fff;
-}
-
-#footer .pf {
-    font-family: 'Montserrat', sans-serif;
-    color: #fff;
-    font-weight: 500;
-    font-size: 0.9rem;
-    margin-bottom: 0;
-}
-.container-fluid {
-    padding: 3% 2% 5%;
-    margin: 0;
-}
-.card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    text-align: center;
-}
-
-/* .ui-datepicker .ui-widget-content {
-    background: white none;
-    color: #fff;
-} */
-/* input[type="date"]::-webkit-calendar-picker-indicator {
-    background: transparent;
-    bottom: 0;
-    color: transparent;
-    cursor: pointer;
-    height: auto;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: auto;
-} */

@@ -36,10 +36,11 @@ async function main () {
      } catch (err) {
       console.log(`Couldn't connect: ${err}`)
      }
-  }
+}
   
-  main();
+main();
 
+//User Schema
 const userSchema = new mongoose.Schema({
       email: {
           type: String,
@@ -56,7 +57,8 @@ const userSchema = new mongoose.Schema({
       phoneNo: Number,
       facebookId: String
   })
-    
+
+//Flight Schema
 const flightSchema = new mongoose.Schema({
     Date: {
         type: String,
@@ -78,6 +80,8 @@ const flightSchema = new mongoose.Schema({
         }
     ]
 });
+
+//Suggestion Schema
 const suggestionSchema = new mongoose.Schema({
     Name: {
         type: String,
@@ -134,7 +138,6 @@ passport.use(new GoogleStrategy({
 ));
 
 //facebook auth
-
 passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
@@ -147,6 +150,7 @@ passport.use(new FacebookStrategy({
   }
 ));
 
+//Finding Flight Details
 async function findO(RequestedObj)
 {
     const result = await Flight.findOne(
@@ -162,8 +166,8 @@ async function findO(RequestedObj)
         return null
 }
 
-//google authenticate is req
-//google callback is res
+
+//google 
 app.route('/auth/google')
     .get(passport.authenticate('google', { scope: ['profile'] }));
 
@@ -186,128 +190,133 @@ app.get('/auth/facebook/booking',
     res.redirect('/booking');
   });
 
-    const RegRsponse = [
-        {
-            Title:'Uh oh!',
-            Message:'There was a problem in signing you up. Please try again or contact the developer',
-            BtnMsg:'Try Again'
-        },
-        {
-            Title: 'Awesome !!',
-            Message: "You've Successfully signed up to our website, look forward to lots of comfortable journey",
-            BtnMsg: 'Login !!'
-        },
-        {
-            Title: 'Thank You !!',
-            Message: "You've Successfully submitted the suggestion, we will definately consider your Suggestion",
-            BtnMsg: "Let's Go Back !!"
-        }
-    ]
-    const logResponse = [{
-        Title:'Uh oh!',
-        Message:'There was a problem in login you up. Please try again or contact the developer',
-        BtnMsg:'Login Again'
-    }]
+//Some Responses
+const RegRsponse = [
+    {
+        Title: 'Uh oh!',
+        Message: 'There was a problem in signing you up. Please try again or contact the developer',
+        BtnMsg: 'Try Again'
+    },
+    {
+        Title: 'Awesome !!',
+        Message: "You've Successfully signed up to our website, look forward to lots of comfortable journey",
+        BtnMsg: 'Login !!'
+    },
+    {
+        Title: 'Thank You !!',
+        Message: "You've Successfully submitted the suggestion, we will definately consider your Suggestion",
+        BtnMsg: "Let's Go Back !!"
+    }
+];
+const logResponse = [{
+    Title: 'Uh oh!',
+    Message: 'There was a problem in login you up. Please try again or contact the developer',
+    BtnMsg: 'Login Again'
+}];
+
+
+//Express Js
+
+//Landing Redirect
 app.get('/', function (req, res) {
     res.redirect('/login');
 })
 
-app.route('/login')
-    
-    .get(function (req, res) {
-        if (!req.isAuthenticated())
-            res.render('login',{Title:'Login ', Body:'Log In',flag:1});
-            
-            // res.render('login');
+//Login Route
+app.route('/login')  
+.get(function (req, res) {
+    if (!req.isAuthenticated())
+        res.render('login',{Title:'Login ', Body:'Log In',flag:1});
+    else
+        res.redirect('/booking');
+})
+.post(
+    passport.authenticate('local', { failureRedirect: '/Response', failureMessage: true }),
+    function (req, res) {
+        res.redirect('/booking');
+});
 
-        else
-            res.redirect('/booking');
-        
-    })
-    .post(
-        passport.authenticate('local', { failureRedirect: '/Response', failureMessage: true }),
-        function (req, res) {
-            res.redirect('/booking');
-        });
-    
-
+//Register Route
 app.route('/register')
-    
-    .get(function (req, res) {
-        res.render('login',{Title:'Register ', Body:'Sign Up',flag:0});
-        // res.render('register');
-    })
-    .post(function (req, res) {
-        User.register({ username: req.body.username, email:req.body.username }, req.body.password, function (err, user)
-        {
-            if (err)
-            {
-                console.log(err);
-                res.render('Response1', { Obj: RegRsponse[0] });
-            }
-            else
-            {
-                passport.authenticate("local")(req, res, function ()
-                {
-                    res.render('Response1', { Obj: RegRsponse[1] });
-                })
-            }
-        })
-
-    });
-app.route('/booking')
-    .get(function (req, res)
+.get(function (req, res) {
+    res.render('login',{Title:'Register ', Body:'Sign Up',flag:0});
+})
+.post(function (req, res) {
+    User.register({ username: req.body.username, email:req.body.username }, req.body.password, function (err, user)
     {
-        if (req.isAuthenticated())
-            res.render('booking',{flag:0});
-
-        else
-        res.redirect('/login');
-    })
-    .post(function (req, res)
-    {
-        if (req.isAuthenticated())
+        if (err)
         {
-            const FlightDetails = {
-                From: req.body.From,
-                To: req.body.To,
-                Date: req.body.Departure_Date
-            } 
-            const R = findO(FlightDetails);
-            R.then(result => {
-                if (result !== null)
-                    // console.log(result);
-                    res.render('booking', { flag: 1, Flights: result.Flights });
-                else
-                    res.render('booking', { flag: 0 });
-            })
-            console.log(FlightDetails);
+            console.log(err);
+            res.render('Response1', { Obj: RegRsponse[0] });
         }
         else
+        {
+            passport.authenticate("local")(req, res, function ()
+            {
+                res.render('Response1', { Obj: RegRsponse[1] });
+            })
+        }
+    })
+});
+
+//Booking Route
+app.route('/booking')
+.get(function (req, res)
+{
+    if (req.isAuthenticated())
+        res.render('booking',{flag:0});
+
+    else
+    res.redirect('/login');
+})
+.post(function (req, res)
+{
+    if (req.isAuthenticated())
+    {
+        const FlightDetails = {
+            From: req.body.From,
+            To: req.body.To,
+            Date: req.body.Departure_Date
+        } 
+        const R = findO(FlightDetails);
+        R.then(result => {
+            if (result !== null)
+                res.render('booking', { flag: 1, Flights: result.Flights });
+            else
+                res.render('booking', { flag: 0 });
+        })
+        console.log(FlightDetails);
+    }
+    else
         res.redirect('/login');
        
 })
-app.route('/Response')
-    .get(function (req, res) {
-        res.render('Response1', { Obj: logResponse[0] });
-    })
-    .post(function (req, res) {
-        const BtnMsg = req.body.BtnMsg;
-        if (BtnMsg == RegRsponse[0].BtnMsg)
-            res.redirect('/register');
-        else
-            res.redirect('/login');
-    });
 
-    app.route('/logout')
-        .get(function (req, res)
-        {
-            req.logout(function (err) {
-                if (err)
-                    return next(err); 
-            });
-            res.redirect('/login');
-        })
+//Response Route
+app.route('/Response')
+.get(function (req, res) {
+    res.render('Response1', { Obj: logResponse[0] });
+})
+.post(function (req, res) {
+    const BtnMsg = req.body.BtnMsg;
+    if (BtnMsg == RegRsponse[0].BtnMsg)
+        res.redirect('/register');
+    else
+        res.redirect('/login');
+});
+
+//Logout Route
+app.route('/logout')
+.get(function (req, res)
+{
+    req.logout(function (err) {
+        if (err)
+            return next(err); 
+    });
+    res.redirect('/login');
+})
+
+//Suggestion Route
 app.post('/Suggestion', function (req, res)
 {
     const suggestion = new Suggestion({
@@ -320,6 +329,7 @@ app.post('/Suggestion', function (req, res)
     suggestion.save();
     res.render('Response1', { Obj: RegRsponse[2] });
 })
+
 app.listen(3000, function () {
     console.log("Server is running on port 3000.");
 })
