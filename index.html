@@ -5,8 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script type="text/javascript">
+     
+        function is_touch_enabled() {
+            return ( 'ontouchstart' in window ) ||
+                   ( navigator.maxTouchPoints > 0 ) ||
+                   ( navigator.msMaxTouchPoints > 0 );
+        }
+     
+   
+        if( is_touch_enabled() ) {
+            window.location.href = "http://localhost:3000/";
+        }
+    
+    </script>
 </head>
-<body>
-    <script src="app.js"></script>
-</body>
+
 </html>
